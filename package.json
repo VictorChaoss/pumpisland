@@ -1,0 +1,9 @@
+{
+  "name": "pump-island",
+  "version": "1.0.0",
+  "description": "PUMP ISLAND — Territory of pump.fun (20.65468° S · 178.73424° W) Interactive 3D Globe & Satellite Zoom Experience",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080"
+  }
+}
