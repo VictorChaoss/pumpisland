@@ -35,6 +35,7 @@ body {
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body.intro-locked {
@@ -286,15 +287,20 @@ body.intro-locked .hero-viewport {
 
 .intro-gate-overlay.warp-exit {
   opacity: 0;
+  visibility: hidden;
   transform: scale(1.85);
   filter: brightness(1.8) blur(8px);
   pointer-events: none !important;
 }
 
-/* Re-enable pointer events on interactive Intro Gate controls */
-.hud-top,
-.hud-bottom,
-.enter-cta-wrapper {
+.intro-gate-overlay.warp-exit * {
+  pointer-events: none !important;
+}
+
+/* Re-enable pointer events on interactive Intro Gate controls only when gate is active */
+.intro-gate-overlay:not(.warp-exit) .hud-top,
+.intro-gate-overlay:not(.warp-exit) .hud-bottom,
+.intro-gate-overlay:not(.warp-exit) .enter-cta-wrapper {
   pointer-events: auto;
 }
 

@@ -477,6 +477,7 @@ class HeroGlobeController {
       pitch: 0,
       bearing: 0,
       interactive: true,
+      scrollZoom: false,
       attributionControl: false,
       canvasContextAttributes: {
         preserveDrawingBuffer: true,
@@ -1094,9 +1095,22 @@ function initIntroGate(heroController) {
     });
 
     enterBtn.addEventListener('click', () => {
+      if (heroController.state !== 'ORBIT') return;
       heroController.startZoomSequence();
     });
   }
+
+  // Smooth scroll to #lore when clicking "READ THE THESIS ↓" or navbar link
+  document.querySelectorAll('a[href="#lore"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      sfx.playHoverSound();
+      const loreSection = document.getElementById('lore');
+      if (loreSection) {
+        loreSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && heroController.state === 'ORBIT' && !introScreen.classList.contains('warp-exit')) {
