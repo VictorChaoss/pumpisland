@@ -10,6 +10,11 @@
  * 3. Interactive Satellite Recon Map & One-Click Promo Video Recorder (.WEBM).
  */
 
+// ============================================================================
+// INSTANT CA LAUNCH SWITCH — Replace this single string when the CA goes live:
+// ============================================================================
+const LIVE_CONTRACT_ADDRESS = 'TBA — LAUNCHING EXCLUSIVELY ON PUMP.FUN';
+
 const ISLAND_COORDS = {
   lat: -20.65467647964946,
   lng: -178.734236,
@@ -1462,18 +1467,24 @@ function initContractAddressBar() {
   const introPumpLink = document.getElementById('intro-pump-link');
 
   const params = new URLSearchParams(window.location.search);
-  const savedCa = params.get('ca') || localStorage.getItem('PUMP_ISLAND_CA');
+  const isLiveHardcoded = LIVE_CONTRACT_ADDRESS && !LIVE_CONTRACT_ADDRESS.startsWith('TBA');
+  const activeCa = isLiveHardcoded
+    ? LIVE_CONTRACT_ADDRESS.trim()
+    : (params.get('ca') || localStorage.getItem('PUMP_ISLAND_CA') || LIVE_CONTRACT_ADDRESS);
 
   function applyCa(caValue) {
     if (!caValue) return;
-    if (caTextEl) caTextEl.textContent = caValue;
-    if (introCaValue) introCaValue.textContent = caValue;
-    if (pumpLink) pumpLink.href = `https://pump.fun/coin/${caValue}`;
-    if (introPumpLink) introPumpLink.href = `https://pump.fun/coin/${caValue}`;
-    if (dexLink) dexLink.href = `https://dexscreener.com/solana/${caValue}`;
+    const clean = caValue.trim();
+    if (caTextEl) caTextEl.textContent = clean;
+    if (introCaValue) introCaValue.textContent = clean;
+    if (!clean.startsWith('TBA')) {
+      if (pumpLink) pumpLink.href = `https://pump.fun/coin/${clean}`;
+      if (introPumpLink) introPumpLink.href = `https://pump.fun/coin/${clean}`;
+      if (dexLink) dexLink.href = `https://dexscreener.com/solana/${clean}`;
+    }
   }
 
-  if (savedCa) applyCa(savedCa);
+  applyCa(activeCa);
 
   if (introCopyBtn && introCaValue) {
     introCopyBtn.addEventListener('click', async () => {
