@@ -13,7 +13,7 @@
 // ============================================================================
 // INSTANT CA LAUNCH SWITCH — Replace this single string when the CA goes live:
 // ============================================================================
-const LIVE_CONTRACT_ADDRESS = 'TBA — LAUNCHING EXCLUSIVELY ON PUMP.FUN';
+const LIVE_CONTRACT_ADDRESS = 'Da3aMSuCK44oC4KXeP6Wh4t4KKasSFB7AN57FVESpump';
 
 const ISLAND_COORDS = {
   lat: -20.65467647964946,
